@@ -1,0 +1,133 @@
+[
+    {
+      "question": "What is the capital of France?",
+      "options": ["Paris", "London", "Berlin", "Madrid"],
+      "answer": 0
+    },
+    {
+      "question": "Which planet is known as the Red Planet?",
+      "options": ["Earth", "Mars", "Venus", "Jupiter"],
+      "answer": 1
+    },
+    {
+      "question": "Who wrote 'Hamlet'?",
+      "options": ["William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain"],
+      "answer": 0
+    },
+    {
+      "question": "What is the largest ocean on Earth?",
+      "options": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+      "answer": 3
+    },
+    {
+      "question": "In which year did the Titanic sink?",
+      "options": ["1912", "1905", "1920", "1898"],
+      "answer": 0
+    },
+    {
+      "question": "What is the smallest country in the world?",
+      "options": ["Vatican City", "Monaco", "San Marino", "Liechtenstein"],
+      "answer": 0
+    },
+    {
+      "question": "Who painted the Mona Lisa?",
+      "options": ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
+      "answer": 1
+    },
+    {
+      "question": "Which element has the chemical symbol 'O'?",
+      "options": ["Oxygen", "Osmium", "Ozone", "Oganesson"],
+      "answer": 0
+    },
+    {
+      "question": "What is the longest river in the world?",
+      "options": ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"],
+      "answer": 1
+    },
+    {
+      "question": "Which country is home to the Great Barrier Reef?",
+      "options": ["Australia", "USA", "Canada", "South Africa"],
+      "answer": 0
+    },
+    {
+      "question": "What is the capital city of Japan?",
+      "options": ["Kyoto", "Osaka", "Tokyo", "Hiroshima"],
+      "answer": 2
+    },
+    {
+      "question": "Who invented the telephone?",
+      "options": ["Nikola Tesla", "Thomas Edison", "Alexander Graham Bell", "Benjamin Franklin"],
+      "answer": 2
+    },
+    {
+      "question": "What is the hardest natural substance on Earth?",
+      "options": ["Gold", "Iron", "Diamond", "Platinum"],
+      "answer": 2
+    },
+    {
+      "question": "Which country won the FIFA World Cup in 2018?",
+      "options": ["Germany", "Brazil", "France", "Argentina"],
+      "answer": 2
+    },
+    {
+      "question": "What is the main ingredient in guacamole?",
+      "options": ["Tomato", "Onion", "Avocado", "Lime"],
+      "answer": 2
+    },
+    {
+      "question": "What is the tallest mountain in the world?",
+      "options": ["Mount Everest", "Mount Kilimanjaro", "Mount Fuji", "K2"],
+      "answer": 0
+    },
+    {
+      "question": "Who was the first man to walk on the moon?",
+      "options": ["Buzz Aldrin", "Yuri Gagarin", "Neil Armstrong", "John Glenn"],
+      "answer": 2
+    },
+    {
+      "question": "What is the largest land animal?",
+      "options": ["African Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+      "answer": 0
+    },
+    {
+      "question": "In what year did World War II end?",
+      "options": ["1945", "1940", "1950", "1939"],
+      "answer": 0
+    },
+    {
+      "question": "Which city hosted the 2008 Summer Olympics?",
+      "options": ["Beijing", "London", "Rio de Janeiro", "Sydney"],
+      "answer": 0
+    },
+    {
+      "question": "What is the main language spoken in Brazil?",
+      "options": ["Spanish", "French", "Portuguese", "English"],
+      "answer": 2
+    },
+    {
+      "question": "Who discovered penicillin?",
+      "options": ["Marie Curie", "Albert Einstein", "Isaac Newton", "Alexander Fleming"],
+      "answer": 3
+    },
+    {
+      "question": "Which country is known as the Land of the Rising Sun?",
+      "options": ["China", "South Korea", "Japan", "Thailand"],
+      "answer": 2
+    },
+    {
+      "question": "What is the currency of the United Kingdom?",
+      "options": ["Euro", "Pound Sterling", "Dollar", "Yen"],
+      "answer": 1
+    },
+    {
+      "question": "Which animal is known for its black and white stripes?",
+      "options": ["Giraffe", "Zebra", "Penguin", "Tiger"],
+      "answer": 1
+    },
+    {
+      "question": "What is the largest desert in the world?",
+      "options": ["Sahara Desert", "Gobi Desert", "Kalahari Desert", "Arctic Desert"],
+      "answer": 0
+    }
+  ]
+  
