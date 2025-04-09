@@ -2,6 +2,7 @@ import json
 import tkinter as tk
 import tkinter.messagebox as mb
 
+'''QuizLogics will handle the logical side of the program'''
 class QuizLogic:
 
     # initialised with variables that needed for this class
@@ -21,18 +22,20 @@ class QuizLogic:
     def check_answer(self,selected_answer):
         # asigning answer to correct answer...
         correct_answer = self.questions[self.question_number]['answer']
-
+        # check the answer is correct and add score, question number plus 1
         if selected_answer == correct_answer:
             self.score += 1
         self.question_number += 1
 
     def check_quiz_finish(self):
+        # check if the question data is ending, if it ends this will end the quiz program.
         return self.question_number>= len(self.questions)
     
     def get_score(self):
+        # this function return the score value to show the score in GUI
         return self.score
     
-
+'''GUI class to handle make this program into an app'''
 class Quiz_GUI:
     def __init__(self, master, quiz_logic):
         self.master = master
@@ -46,7 +49,7 @@ class Quiz_GUI:
         self.option_frame = tk.Frame(self.master)
         self.option_frame.pack(pady=20)
 
-        self.var = tk.StringVar()
+        self.var = tk.StringVar(value=-1) # value = -1 changed the selected button from the start of the program...
 
         self.option = []
         for i in range(4):
@@ -71,6 +74,7 @@ class Quiz_GUI:
         selected_option = int(self.var.get())
         self.quiz_logic.check_answer(selected_option)
         self.score_number.config(text=str(self.quiz_logic.get_score()))
+        self.var.set(-1)
             
         if self.quiz_logic.check_quiz_finish():
             self.question_label.config(text="Quiz Completed!")
@@ -92,7 +96,7 @@ class Quiz_GUI:
                 btn.pack()
                 self.option.append(btn)
 
-
+'''Function to load question data'''
 def load_json(questions):
     try:
         with open(questions,'r') as file:

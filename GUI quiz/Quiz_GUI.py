@@ -16,7 +16,7 @@ class Quiz_GUI:
         self.option_frame = tk.Frame(self.master)
         self.option_frame.pack(pady=20)
 
-        self.var = tk.StringVar()
+        self.var = tk.StringVar(value=-1)
 
         self.option = []
         for i in range(4):
@@ -27,10 +27,13 @@ class Quiz_GUI:
         self.nextBtn = tk.Button(self.master,text="Next",command=self.next_question)
         self.nextBtn.pack(pady=10)
 
-        self.score_label = tk.Label(self.master,text="score: ")
+        self.score_frame = tk.Frame(self.master)
+        self.score_frame.pack(anchor="center")
+
+        self.score_label = tk.Label(self.score_frame,text="score: ")
         self.score_label.pack(side="left", pady=20)
 
-        self.score_number = tk.Label(self.master, text="0")
+        self.score_number = tk.Label(self.score_frame, text="0")
         self.score_number.pack(side="left", pady=20)
 
         self.load_question()
@@ -38,7 +41,8 @@ class Quiz_GUI:
     def next_question(self):
         selected_option = int(self.var.get())
         self.quiz_logic.check_answer(selected_option)
-            
+        self.score_number.config(text=str(self.quiz_logic.get_score()))
+        self.var.set(-1)
         if self.quiz_logic.check_quiz_finish():
             self.question_label.config(text="Quiz Completed!")
             self.option_frame.pack_forget()
