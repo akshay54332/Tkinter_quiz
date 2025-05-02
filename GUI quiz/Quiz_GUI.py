@@ -3,6 +3,7 @@ from Quiz_logics import QuizLogic
 import tkinter.messagebox as mb
 
 
+
 class Quiz_GUI:
     def __init__(self, master, quiz_logic):
         self.master = master
