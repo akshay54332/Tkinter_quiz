@@ -126,9 +126,10 @@ if __name__ == "__main__":
     if not quiz_logic.questions:
         print("No questions available, exiting...")
     else:
-        root = tb.Window(themename="superhero")
-        root.geometry('600x500')
+        root = tb.Window(themename="solar")
+        root.geometry('700x600')
         app = Quiz_GUI(root, quiz_logic)
+        root.minsize(600,500)
         root.mainloop()
-        root.minsize('500x400')
+        
         
