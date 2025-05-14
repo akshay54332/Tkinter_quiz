@@ -28,10 +28,13 @@ class QuizLogic:
     def check_answer(self,selected_answer):
         # asigning answer to correct answer...
         correct_answer = self.questions[self.question_number]['answer']
-        # check the answer is correct and add score, question number plus 1
-        if selected_answer == correct_answer:
-            self.score += 1
+        # if correct it will be true otherwise it will be false...
+        is_correct = selected_answer == correct_answer
+        
         self.question_number += 1
+        if is_correct:
+            self.score += 1
+        return is_correct
 
     def check_quiz_finish(self):
         # check if the question data is ending, if it ends this will end the quiz program.
@@ -70,6 +73,9 @@ class Quiz_GUI:
         self.nextBtn = tb.Button(self.master,text="Next",bootstyle="primary , outline",command=self.next_question)
         self.nextBtn.pack(pady=10)
 
+        self.feedback = tk.Label(self.master, text="",font=("consolas", 12, "bold"))
+        self.feedback.pack()
+
         self.score_frame = tk.Frame(self.master)
         self.score_frame.pack(anchor="center")
         self.score_label = tk.Label(self.score_frame,text="score: ")
@@ -84,11 +90,20 @@ class Quiz_GUI:
         self.load_question()
 
     def next_question(self):
+        
         selected_option = int(self.var.get())
-        self.quiz_logic.check_answer(selected_option)
+        
+        is_correct = self.quiz_logic.check_answer(selected_option)
+
+        if is_correct:
+            self.show_feedback("correct!","green")
+        else:
+            self.show_feedback("incorrect!","red")
+
         self.score_number.config(text=str(self.quiz_logic.get_score()))
         self.var.set(-1)
         self.progress_bar['value']+= 1
+        
             
         if self.quiz_logic.check_quiz_finish():
             self.question_label.config(text="Quiz Completed!")
@@ -110,6 +125,10 @@ class Quiz_GUI:
                 btn.pack()
                 self.option.append(btn)
 
+    def show_feedback(self,feedback, colour):
+        self.feedback.config(text=feedback, foreground=colour)
+
+        self.master.after(1500,lambda:self.feedback.config(text=""))
 '''Function to load question data'''
 def load_json(questions):
     try:
@@ -131,5 +150,4 @@ if __name__ == "__main__":
         app = Quiz_GUI(root, quiz_logic)
         root.minsize(600,500)
         root.mainloop()
-        
         
