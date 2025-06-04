@@ -34,6 +34,9 @@ class Quiz_GUI:
         self.nextBtn = tb.Button(self.master,text="Next",bootstyle="primary , outline",command=self.next_question)
         self.nextBtn.pack(pady=10)
 
+        self.feedback = tk.Label(self.master, text="",font=("consolas", 12, "bold"))
+        self.feedback.pack()
+
         self.score_frame = tk.Frame(self.master)
         self.score_frame.pack(anchor="center")
         self.score_label = tk.Label(self.score_frame,text="score: ")
@@ -49,7 +52,14 @@ class Quiz_GUI:
 
     def next_question(self):
         selected_option = int(self.var.get())
-        self.quiz_logic.check_answer(selected_option)
+        
+        is_correct = self.quiz_logic.check_answer(selected_option)
+
+        if is_correct:
+            self.show_feedback("correct!","green")
+        else:
+            self.show_feedback("incorrect!","red")
+
         self.score_number.config(text=str(self.quiz_logic.get_score()))
         self.var.set(-1)
         self.progress_bar['value']+= 1
@@ -73,6 +83,11 @@ class Quiz_GUI:
                 btn = tk.Radiobutton(self.option_frame, text=option, variable=self.var, value=str(i))
                 btn.pack()
                 self.option.append(btn)
+
+    def show_feedback(self,feedback, colour):
+        self.feedback.config(text=feedback, foreground=colour)
+
+        self.master.after(1500,lambda:self.feedback.config(text=""))
 
 
 if __name__ == "__main__":
