@@ -4,6 +4,12 @@ import tkinter.messagebox as mb
 from ttkbootstrap.constants import *
 import ttkbootstrap as tb
 import random
+import csv
+import os.path
+
+
+NAME = ''
+SCORE = ''
 
 
 class QuizLogic:
@@ -57,7 +63,7 @@ class Quiz_GUI:
     def __init__(self, master, quiz_logic):
         self.master = master
         self.master.title("Quiz")
-
+        
         self.quiz_logic = quiz_logic
 
         self.question_label = tk.Label(self.master,text="",wraplength=400, justify="center",font=("consolas", 12,"bold") )
@@ -88,7 +94,7 @@ class Quiz_GUI:
         self.score_number = tk.Label(self.score_frame, text="0")
         self.score_number.pack(side="left", pady=20)
 
-        self.progress_bar = tb.Progressbar(self.master,bootstyle="success", maximum=26, length=150, value=1)
+        self.progress_bar = tb.Progressbar(self.master,bootstyle="success", maximum= 26, length=150, value=1)
         self.progress_bar.pack()
 
         self.load_question()
@@ -113,6 +119,9 @@ class Quiz_GUI:
             self.question_label.config(text="Quiz Completed!")
             self.option_frame.pack_forget()
             self.nextBtn.config(state="disabled")
+            global SCORE
+            SCORE = self.quiz_logic.get_score()
+            store(NAME,SCORE)
             mb.showinfo("Quiz Completed", f"Your total score is: {self.quiz_logic.get_score()}")
         else:
             self.load_question()
@@ -145,6 +154,36 @@ def load_json(questions):
         return []
     
 
+# for checking if the file exist...
+def get_file_path(data_file):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    file_path = os.path.join(script_dir,data_file)
+
+    return file_path
+
+def is_file(data_file):
+    file_path = get_file_path(data_file)
+    file_exist = os.path.exists(file_path)
+    return file_exist
+
+def store(name, score):
+    file_path = is_file('scoreBoard.csv')
+
+    if file_path:
+        with open('scoreBoard.csv','a', newline="") as file:
+            fieldnames = ['first_name','score']
+            csvwriter = csv.DictWriter(file, fieldnames=fieldnames)
+            csvwriter.writerow({"first_name":name, "score": score})
+
+    else:
+        with open('scoreBoard.csv','a', newline="") as file:
+            fieldnames = ['first_name','score']
+            csvwriter = csv.DictWriter(file, fieldnames=fieldnames)
+            csvwriter.writeheader()
+            csvwriter.writerow({"first_name":name, "score": score})
+
+
 
 class start_window:
     def __init__(self, master):
@@ -154,6 +193,7 @@ class start_window:
         self.welcome_label = tk.Label(self.master,text="welcome to Quiz",font=("consolas",12,"bold"))
         self.welcome_label.pack(pady=40, padx=10)
 
+        self.name_label = tk.Label(self.master, text="Enter your name please:", font=("consolas",10)).pack()
         self.entry_name = tk.Entry(self.master)
         self.entry_name.pack()
 
@@ -167,6 +207,10 @@ class start_window:
         name = self.entry_name.get().strip() # get the name without spaces or tabs...
         if name:
             self.name_error.pack_forget() # Hide error label...
+
+            global NAME
+            NAME = name
+            
             return name
         else:
             self.name_error.pack() # show error message...
@@ -186,7 +230,6 @@ class start_window:
         quiz_window = tk.Toplevel()
         quiz_window.geometry('700x600')
         Quiz_GUI(quiz_window,quiz_logic)
-
 
 
 if __name__ == "__main__":
