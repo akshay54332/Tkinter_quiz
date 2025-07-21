@@ -3,7 +3,10 @@ from Quiz_logics import QuizLogic
 import tkinter.messagebox as mb
 from ttkbootstrap.constants import *
 import ttkbootstrap as tb
+from loading_JSON_v2 import store
+from leaderboard_window import leaderboard
 
+NAME = ''
 
 
 class Quiz_GUI:
@@ -14,7 +17,7 @@ class Quiz_GUI:
     def __init__(self, master, quiz_logic):
         self.master = master
         self.master.title("Quiz")
-
+        
         self.quiz_logic = quiz_logic
 
         self.question_label = tk.Label(self.master,text="",wraplength=400, justify="center",font=("consolas", 12,"bold") )
@@ -45,12 +48,15 @@ class Quiz_GUI:
         self.score_number = tk.Label(self.score_frame, text="0")
         self.score_number.pack(side="left", pady=20)
 
-        self.progress_bar = tb.Progressbar(bootstyle="success", maximum=26, length=150, value=1)
+        self.progress_bar = tb.Progressbar(self.master,bootstyle="success", maximum= 26, length=150, value=1)
         self.progress_bar.pack()
+
+        self.leaderboard_btn = tb.Button(self.master, text="leaderboard",bootstyle = "primary , outline", command = self.show_leaderboard)
 
         self.load_question()
 
     def next_question(self):
+        
         selected_option = int(self.var.get())
         
         is_correct = self.quiz_logic.check_answer(selected_option)
@@ -63,12 +69,18 @@ class Quiz_GUI:
         self.score_number.config(text=str(self.quiz_logic.get_score()))
         self.var.set(-1)
         self.progress_bar['value']+= 1
+        
             
         if self.quiz_logic.check_quiz_finish():
             self.question_label.config(text="Quiz Completed!")
             self.option_frame.pack_forget()
             self.nextBtn.config(state="disabled")
+            self.leaderboard_btn.pack(pady=10)
+            global SCORE
+            SCORE = self.quiz_logic.get_score()
+            store(NAME,SCORE)
             mb.showinfo("Quiz Completed", f"Your total score is: {self.quiz_logic.get_score()}")
+            
         else:
             self.load_question()
 
@@ -88,6 +100,12 @@ class Quiz_GUI:
         self.feedback.config(text=feedback, foreground=colour)
 
         self.master.after(1500,lambda:self.feedback.config(text=""))
+
+    def show_leaderboard(self):
+        score_window = tk.Toplevel()
+        score_window.geometry('700x600')
+        leaderboard(score_window)
+
 
 
 if __name__ == "__main__":

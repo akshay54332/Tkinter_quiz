@@ -1,13 +1,14 @@
 import json
 import tkinter as tk
 import tkinter.messagebox as mb
+from tkinter import ttk
 from ttkbootstrap.constants import *
 import ttkbootstrap as tb
 import random
 import csv
 import os.path
 
-
+#global variables for name and score...
 NAME = ''
 SCORE = ''
 
@@ -97,6 +98,8 @@ class Quiz_GUI:
         self.progress_bar = tb.Progressbar(self.master,bootstyle="success", maximum= 26, length=150, value=1)
         self.progress_bar.pack()
 
+        self.leaderboard_btn = tb.Button(self.master, text="leaderboard",bootstyle = "primary , outline", command = self.show_leaderboard)
+
         self.load_question()
 
     def next_question(self):
@@ -119,10 +122,12 @@ class Quiz_GUI:
             self.question_label.config(text="Quiz Completed!")
             self.option_frame.pack_forget()
             self.nextBtn.config(state="disabled")
+            self.leaderboard_btn.pack(pady=10)
             global SCORE
             SCORE = self.quiz_logic.get_score()
             store(NAME,SCORE)
             mb.showinfo("Quiz Completed", f"Your total score is: {self.quiz_logic.get_score()}")
+            
         else:
             self.load_question()
 
@@ -142,6 +147,11 @@ class Quiz_GUI:
         self.feedback.config(text=feedback, foreground=colour)
 
         self.master.after(1500,lambda:self.feedback.config(text=""))
+
+    def show_leaderboard(self):
+        score_window = tk.Toplevel()
+        score_window.geometry('700x600')
+        leaderboard(score_window)
 
 
 '''Function to load question data'''
@@ -182,6 +192,37 @@ def store(name, score):
             csvwriter = csv.DictWriter(file, fieldnames=fieldnames)
             csvwriter.writeheader()
             csvwriter.writerow({"first_name":name, "score": score})
+
+
+class leaderboard:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("leaderboard")
+
+        self.leaderboard_label = tk.Label(self.master,text="leaderboard",font=('consolas',12,'bold'), justify="center").pack()
+
+        file_path = get_file_path('scoreBoard.csv')
+        file = open(file_path)
+        csvreader = csv.reader(file)
+        l1 = []
+        l1 = next(csvreader)
+        r_set = [row for row in csvreader]
+
+
+        trv = ttk.Treeview(self.master,selectmode='browse')
+        trv.pack()
+        
+        trv['height'] = 5
+        trv['show'] = 'headings'
+        trv['column'] = l1
+
+        for i in l1:
+            trv.column(i, width=100,anchor='c')
+            trv.heading(i, text=i)
+
+        for dt in r_set:
+            v=[r for r in dt]
+            trv.insert('','end',iid=v[0],values=v)
 
 
 
