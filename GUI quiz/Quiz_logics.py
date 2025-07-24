@@ -1,6 +1,7 @@
 from loading_JSON_v2 import load_json # since I made this function i'm directly importing it...
 import random
 
+
 # This class is made to handle quiz logics like loading questions, tracking score etc...
 class QuizLogic:
 
@@ -43,3 +44,4 @@ class QuizLogic:
     def get_score(self):
         # this function return the score value to show the score in GUI
         return self.score
+    

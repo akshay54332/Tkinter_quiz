@@ -39,3 +39,4 @@ def store(name, score):
             csvwriter = csv.DictWriter(file, fieldnames=fieldnames)
             csvwriter.writeheader()
             csvwriter.writerow({"first_name":name, "score": score})
+

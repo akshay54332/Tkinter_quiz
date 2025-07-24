@@ -1,3 +1,4 @@
+'''libraries needed'''
 import json
 import tkinter as tk
 import tkinter.messagebox as mb
@@ -13,11 +14,11 @@ NAME = ''
 SCORE = ''
 
 
+"""
+QuizLogics will handle the logical side of the program
+"""
 class QuizLogic:
 
-    """
-    QuizLogics will handle the logical side of the program
-    """
 
     # initialised with variables that needed for this class
     def __init__(self,data_file):
@@ -56,6 +57,7 @@ class QuizLogic:
         return self.score
     
 
+'''GUI class'''
 class Quiz_GUI:
 
     '''
@@ -65,7 +67,7 @@ class Quiz_GUI:
         self.master = master
         self.master.title("Quiz")
         
-        self.quiz_logic = quiz_logic
+        self.quiz_logic = quiz_logic # assign quiz logics to variable...
 
         self.question_label = tk.Label(self.master,text="",wraplength=400, justify="center",font=("consolas", 12,"bold") )
         self.question_label.pack(pady=20)
@@ -76,6 +78,8 @@ class Quiz_GUI:
         self.var = tk.StringVar(value=-1) # value = -1 changed the selected button from the start of the program...
 
         self.option = []
+
+        # creating radio buttons
         for i in range(4):
             btn = tk.Radiobutton(self.option_frame,text="", variable=self.var,value=str(i), font=("consolas",11, "bold"))
             btn.pack()
@@ -154,7 +158,7 @@ class Quiz_GUI:
         leaderboard(score_window)
 
 
-'''Function to load question data'''
+'''Function to load question data and handling CSV'''
 def load_json(questions):
     try:
         with open(questions,'r') as file:
@@ -194,6 +198,7 @@ def store(name, score):
             csvwriter.writerow({"first_name":name, "score": score})
 
 
+'''leader board class'''
 class leaderboard:
     def __init__(self, master):
         self.master = master
@@ -208,13 +213,16 @@ class leaderboard:
         l1 = next(csvreader)
         r_set = [row for row in csvreader]
 
+        # sorting the leaderboard
+        r_set.sort(key=lambda x: int(x[1]), reverse= True)
 
-        trv = ttk.Treeview(self.master,selectmode='browse')
+
+        trv = ttk.Treeview(self.master,selectmode='browse') #creating treeview
         trv.pack()
         
-        trv['height'] = 5
-        trv['show'] = 'headings'
-        trv['column'] = l1
+        trv['height'] = 10  #height of the table
+        trv['show'] = 'headings' #headings
+        trv['column'] = l1 
 
         for i in l1:
             trv.column(i, width=100,anchor='c')

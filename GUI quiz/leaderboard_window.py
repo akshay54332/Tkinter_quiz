@@ -18,6 +18,9 @@ class leaderboard:
         l1 = next(csvreader)
         r_set = [row for row in csvreader]
 
+        # sorting the leaderboard
+        r_set.sort(key=lambda x: int(x[1]), reverse= True)
+
         trv = ttk.Treeview(self.master,selectmode='browse')
         trv.pack()
         
